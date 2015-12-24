@@ -1,9 +1,10 @@
 package org.springframework.amqp.helloworld.async;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.helloworld.HelloWorldConfiguration;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -13,47 +14,35 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor;
 
 @Configuration
-public class ProducerConfiguration {
+public class ProducerConfiguration extends HelloWorldConfiguration {
 
-	protected final String helloWorldQueueName = "hello.world.queue";
+    @Bean
+    public ScheduledProducer scheduledProducer() {
 
-	@Bean
-	public RabbitTemplate rabbitTemplate() {
-		RabbitTemplate template = new RabbitTemplate(connectionFactory());
-		template.setRoutingKey(this.helloWorldQueueName);
-		return template;
-	}
+        return new ScheduledProducer();
+    }
 
-	@Bean
-	public ConnectionFactory connectionFactory() {
-		CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
-		connectionFactory.setUsername("guest");
-		connectionFactory.setPassword("guest");
-		return connectionFactory;
-	}
+    @Bean
+    public BeanPostProcessor postProcessor() {
 
-	@Bean
-	public ScheduledProducer scheduledProducer() {
-		return new ScheduledProducer();
-	}
+        return new ScheduledAnnotationBeanPostProcessor();
+    }
 
-	@Bean
-	public BeanPostProcessor postProcessor() {
-		return new ScheduledAnnotationBeanPostProcessor();
-	}
+    static class ScheduledProducer {
 
+        @Autowired
+        private volatile RabbitTemplate rabbitTemplate;
 
-	static class ScheduledProducer {
+        private final AtomicInteger counter = new AtomicInteger();
 
-		@Autowired
-		private volatile RabbitTemplate rabbitTemplate;
-
-		private final AtomicInteger counter = new AtomicInteger();
-
-		@Scheduled(fixedRate = 3000)
-		public void sendMessage() {
-			rabbitTemplate.convertAndSend("Hello World " + counter.incrementAndGet());
-		}
-	}
+        @Scheduled(fixedRate = 3000)
+        public void sendMessage() {
+            Map<String, Object> msg = new HashMap<>();
+            int count =  counter.incrementAndGet();
+            msg.put("title", "title " + count);
+            msg.put("body", "hello world " +  count);
+            rabbitTemplate.convertAndSend(msg);
+        }
+    }
 
 }

@@ -1,9 +1,13 @@
 package org.springframework.amqp.helloworld.async;
 
-public class HelloWorldHandler {
+import org.springframework.amqp.core.MessageListener;
 
-	public void handleMessage(String text) {
-		System.out.println("Received: " + text);
-	}
+public class HelloWorldHandler implements MessageListener {
+
+    @Override
+    public void onMessage(org.springframework.amqp.core.Message message) {
+
+        System.out.println("Received: " + new String(message.getBody()));
+    }
 
 }

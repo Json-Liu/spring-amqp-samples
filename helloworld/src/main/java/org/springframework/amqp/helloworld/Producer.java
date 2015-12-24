@@ -14,7 +14,7 @@ public class Producer {
         ApplicationContext context = new AnnotationConfigApplicationContext(HelloWorldConfiguration.class);
         AmqpTemplate amqpTemplate = context.getBean(AmqpTemplate.class);
         Map<String, Object> msg = new HashMap<>();
-        msg.put("title", "first msg");
+        msg.put("title", "title");
         msg.put("body", "hello world");
 
         //amqpTemplate.convertAndSend("amq.topic", "route.finance.commission.dealed", msg);
