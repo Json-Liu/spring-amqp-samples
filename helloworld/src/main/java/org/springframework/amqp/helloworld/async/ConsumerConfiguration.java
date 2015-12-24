@@ -13,7 +13,7 @@ public class ConsumerConfiguration extends HelloWorldConfiguration {
 	public SimpleMessageListenerContainer listenerContainer() {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory());
-		container.setQueueNames(this.helloWorldQueueName);
+		container.setQueueNames(this.queueName);
 		container.setMessageListener(new MessageListenerAdapter(new HelloWorldHandler()));
 		return container;
 	}

@@ -1,5 +1,5 @@
 spring:
   rabbitmq:
-    host: rabbitserver
-    username: tutorial
-    password: tutorial
+    host: 119.147.176.188
+    username: guest
+    password: guest
