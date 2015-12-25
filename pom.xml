@@ -8,7 +8,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>helloworld</module>
-		<module>stocks</module>
 		<module>rabbitmq-tutorials</module>
 	</modules>
 	<properties>
