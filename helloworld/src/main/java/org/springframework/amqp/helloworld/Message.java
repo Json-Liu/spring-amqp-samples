@@ -9,13 +9,17 @@
 
 package org.springframework.amqp.helloworld;
 
-public class HelloWorldMessage {
+public class Message {
 
     private String title;
 
     private String body;
 
-    public HelloWorldMessage(String title, String body) {
+    public Message() {
+        super();
+    }
+
+    public Message(String title, String body) {
         super();
         this.title = title;
         this.body = body;

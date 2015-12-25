@@ -9,7 +9,6 @@
 	<modules>
 		<module>helloworld</module>
 		<module>stocks</module>
-		<module>log4j</module>
 		<module>rabbitmq-tutorials</module>
 	</modules>
 	<properties>

@@ -1,10 +1,9 @@
 package org.springframework.amqp.helloworld.async;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.amqp.helloworld.HelloWorldConfiguration;
+import org.springframework.amqp.helloworld.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -35,12 +34,12 @@ public class ProducerConfiguration extends HelloWorldConfiguration {
 
         private final AtomicInteger counter = new AtomicInteger();
 
-        @Scheduled(fixedRate = 3000)
+        @Scheduled(fixedRate = 100)
         public void sendMessage() {
-            Map<String, Object> msg = new HashMap<>();
-            int count =  counter.incrementAndGet();
-            msg.put("title", "title " + count);
-            msg.put("body", "hello world " +  count);
+
+            int count = counter.incrementAndGet();
+            Message msg = new Message("title " + count, "hello world " + count);
+
             rabbitTemplate.convertAndSend(msg);
         }
     }
