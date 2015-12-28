@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class HelloWorldConfiguration {
 
-    protected final String queueName = "queue.finance.commission.dealed";
+    protected final String queueName = "queue.hello.world";
 
     protected final String routingKey = "route.finance.commission.dealed";
 
