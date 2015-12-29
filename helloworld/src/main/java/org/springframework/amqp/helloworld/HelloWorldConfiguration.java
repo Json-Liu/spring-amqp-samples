@@ -23,7 +23,7 @@ public class HelloWorldConfiguration {
     public ConnectionFactory connectionFactory() {
 
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory("119.147.176.188");
-        connectionFactory.setVirtualHost("vh.finance.test");
+        connectionFactory.setVirtualHost("vh.finance");
         connectionFactory.setUsername("finance_user");
         connectionFactory.setPassword("finance_pwd");
         return connectionFactory;
