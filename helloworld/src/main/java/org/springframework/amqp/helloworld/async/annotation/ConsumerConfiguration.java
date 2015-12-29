@@ -1,6 +1,6 @@
-package org.springframework.amqp.helloworld.async;
+package org.springframework.amqp.helloworld.async.annotation;
 
-import org.springframework.amqp.helloworld.HelloWorldConfiguration;
+import org.springframework.amqp.helloworld.sync.annotation.HelloWorldConfiguration;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -16,7 +16,7 @@ public class ConsumerConfiguration extends HelloWorldConfiguration {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory());
         container.setQueueNames(this.queueName);
-        container.setMessageListener(new MessageListenerAdapter(new HelloWorldHandler(), new Jackson2JsonMessageConverter()));
+        container.setMessageListener(new MessageListenerAdapter(new HelloMessageListener(), new Jackson2JsonMessageConverter()));
         return container;
     }
 

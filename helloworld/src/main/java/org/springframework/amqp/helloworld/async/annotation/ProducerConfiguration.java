@@ -1,9 +1,9 @@
-package org.springframework.amqp.helloworld.async;
+package org.springframework.amqp.helloworld.async.annotation;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.springframework.amqp.helloworld.HelloWorldConfiguration;
-import org.springframework.amqp.helloworld.Message;
+import org.springframework.amqp.helloworld.sync.annotation.HelloWorldConfiguration;
+import org.springframework.amqp.helloworld.sync.annotation.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;

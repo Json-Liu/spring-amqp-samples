@@ -1,4 +1,4 @@
-package org.springframework.amqp.helloworld.async;
+package org.springframework.amqp.helloworld.async.annotation;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

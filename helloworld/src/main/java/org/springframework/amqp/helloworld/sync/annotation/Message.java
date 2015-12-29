@@ -7,7 +7,7 @@
  * NETEASE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-package org.springframework.amqp.helloworld;
+package org.springframework.amqp.helloworld.sync.annotation;
 
 public class Message {
 

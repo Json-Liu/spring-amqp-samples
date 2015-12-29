@@ -1,4 +1,4 @@
-package org.springframework.amqp.helloworld;
+package org.springframework.amqp.helloworld.sync.annotation;
 
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Queue;
