@@ -11,7 +11,7 @@
 
     <!-- 2、Producer configuration -->
     <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" exchange="amq.topic"
-        routing-key="route.finance.commission.dealed" message-converter="jsonMessageConverter" />
+        routing-key="route.hellow.world" message-converter="jsonMessageConverter" />
 
     <bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter" />
 

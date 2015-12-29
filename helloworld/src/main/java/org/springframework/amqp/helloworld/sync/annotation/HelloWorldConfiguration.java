@@ -15,7 +15,7 @@ public class HelloWorldConfiguration {
 
     protected final String queueName = "queue.hello.world";
 
-    protected final String routingKey = "route.finance.commission.dealed";
+    protected final String routingKey = "route.hellow.world";
 
     protected final String exchange = "amq.topic";
 
