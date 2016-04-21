@@ -25,10 +25,10 @@ public class HelloWorldConfiguration {
     @Bean
     public ConnectionFactory connectionFactory() {
 
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("lrmq.finance.yy.com", 5672);
-        connectionFactory.setVirtualHost("/");
-        connectionFactory.setUsername("guest");
-        connectionFactory.setPassword("guest");
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("119.147.176.188", 5672);
+        connectionFactory.setVirtualHost("vh.hello_world");
+        connectionFactory.setUsername("helloworld");
+        connectionFactory.setPassword("helloworld");
         return connectionFactory;
     }
 
