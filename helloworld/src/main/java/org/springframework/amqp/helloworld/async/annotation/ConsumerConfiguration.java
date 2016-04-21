@@ -17,6 +17,7 @@ public class ConsumerConfiguration extends HelloWorldConfiguration {
         container.setConnectionFactory(connectionFactory());
         container.setQueueNames(this.queueName);
         container.setMessageListener(new MessageListenerAdapter(new HelloMessageListener(), new Jackson2JsonMessageConverter()));
+        container.setConcurrentConsumers(10);
         return container;
     }
 

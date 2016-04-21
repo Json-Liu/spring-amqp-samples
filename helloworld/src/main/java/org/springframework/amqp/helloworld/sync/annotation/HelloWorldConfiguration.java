@@ -9,6 +9,9 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.retry.backoff.ExponentialBackOffPolicy;
+import org.springframework.retry.policy.SimpleRetryPolicy;
+import org.springframework.retry.support.RetryTemplate;
 
 @Configuration
 public class HelloWorldConfiguration {
@@ -22,10 +25,10 @@ public class HelloWorldConfiguration {
     @Bean
     public ConnectionFactory connectionFactory() {
 
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("119.147.176.188");
-        connectionFactory.setVirtualHost("vh.finance");
-        connectionFactory.setUsername("finance_user");
-        connectionFactory.setPassword("finance_pwd");
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("lrmq.finance.yy.com", 5672);
+        connectionFactory.setVirtualHost("/");
+        connectionFactory.setUsername("guest");
+        connectionFactory.setPassword("guest");
         return connectionFactory;
     }
 
@@ -50,6 +53,22 @@ public class HelloWorldConfiguration {
 
         //Where we will synchronously receive messages from
         template.setQueue(this.queueName);
+
+        ExponentialBackOffPolicy bop = new ExponentialBackOffPolicy();
+        bop.setInitialInterval(100);
+        bop.setMultiplier(1);
+        bop.setMaxInterval(30000);
+
+        SimpleRetryPolicy simpleRetryPolicy = new SimpleRetryPolicy();
+        //how many attempts
+        simpleRetryPolicy.setMaxAttempts(3);
+
+        RetryTemplate retryTemplate = new RetryTemplate();
+        retryTemplate.setBackOffPolicy(bop);
+        retryTemplate.setRetryPolicy(simpleRetryPolicy);
+
+        template.setRetryTemplate(retryTemplate);
+
         return template;
     }
 

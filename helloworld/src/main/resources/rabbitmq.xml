@@ -6,7 +6,7 @@
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 1、Common config, rabbitmq server configuration -->
-    <rabbit:connection-factory id="connectionFactory" host="119.147.176.188" port="5672"
+    <rabbit:connection-factory id="connectionFactory" host="119.147.176.188" port="5670"
         virtual-host="vh.finance" username="finance_user" password="finance_pwd" />
 
     <!-- 2、Producer configuration -->

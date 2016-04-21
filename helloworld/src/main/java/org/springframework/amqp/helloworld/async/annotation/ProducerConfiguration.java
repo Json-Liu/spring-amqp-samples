@@ -34,13 +34,18 @@ public class ProducerConfiguration extends HelloWorldConfiguration {
 
         private final AtomicInteger counter = new AtomicInteger();
 
-        @Scheduled(fixedRate = 100)
+        @Scheduled(fixedRate = 100000)
         public void sendMessage() {
 
             int count = counter.incrementAndGet();
-            Message msg = new Message("title " + count, "hello world " + count);
 
+            String title = "title " + count;
+            String body = "hello world " + count;
+            Message msg = new Message(title, body);
+            System.out.println("sendMessage T1 Body : " + body);
             rabbitTemplate.convertAndSend(msg);
+            System.out.println("sendMessage T2 Body : " + body);
+
         }
     }
 
