@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/rabbit
+           http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 1、Common config, rabbitmq server configuration -->
+    <rabbit:connection-factory id="connectionFactory" host="119.147.176.188" port="5670"
+                               virtual-host="vh.finance_push_test" username="finance_push" password="finance_push"
+                               requested-heartbeat="30"/>
+
+    <!-- 2、Producer configuration -->
+    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" message-converter="jsonMessageConverter"/>
+
+    <bean id="jsonMessageConverter" class="org.springframework.amqp.support.converter.Jackson2JsonMessageConverter"/>
+
+    <!-- 3、 Consumer configuration -->
+
+
+    <rabbit:listener-container connection-factory="connectionFactory" concurrency="5" prefetch="2">
+        <rabbit:listener ref="pushRequestListener"
+                         queue-names="queue.push.request"
+        />
+
+    </rabbit:listener-container>
+
+
+    <bean id="pushRequestListener"
+          class="org.springframework.amqp.helloworld.financepush.mq.pushrequest.PushRequestListener"/>
+
+</beans>
+
